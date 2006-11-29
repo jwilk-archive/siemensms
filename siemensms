@@ -1,0 +1,125 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+package SiemenSMS;
+
+use base qw(kawute);
+
+our $VERSION = '0.1';
+
+sub version($) { $SiemenSMS::VERSION; }
+sub software_name($) { 'siemensms'; }
+sub config_file($) { 'siemensms.conf'; }
+sub site($) { 'siemens.localhost'; }
+
+sub fix_number($$)
+{
+  my ($this, $number) = @_;
+  $this->quit('No such recipient') unless $number =~ /^(?:\+?48)?(\d{9})$|^(\d{11})$/;
+  $number = $2 if defined $2;
+  $number = $1 if defined $1;
+  return $number;
+}
+
+my $device = undef;
+my $baud = undef;
+my $direct = 0;
+
+sub main($)
+{
+  my ($this) = @_;
+  $this->go_home();
+  use constant
+  {
+    ACTION_VOID   => sub { $this->action_void(); },
+    ACTION_SEND   => sub { $this->action_send(); },
+  };
+  my $action = ACTION_SEND;
+  $this->get_options(
+    'send|s|S' =>       sub { $action = ACTION_SEND; },
+    'void' =>           sub { $action = ACTION_VOID; },
+    'direct|d' =>       \$direct
+  );
+  $this->read_config(
+    'device' => sub 
+      { $device = shift; },
+    'baud' => sub 
+      { $baud = shift; }
+  );
+  $this->reject_unpersons(0) if $this->force();
+  &{$action}();
+}
+
+sub action_send()
+{
+  my ($this) = @_;
+  $this->pod2usage(1) if $#ARGV != 1;
+  require Encode;
+  require Text::Wrap;
+  require POSIX;
+  my $codeset = $this->codeset();
+  $this->debug_print("Codeset: $codeset");
+  binmode STDERR, ":encoding($codeset)";
+  binmode STDOUT, ":encoding($codeset)";
+  
+  my ($recipient, $body) = @ARGV;
+  $recipient = Encode::decode($codeset, $recipient);
+  $body = Encode::decode($codeset, $body);
+  (my $number, $recipient) = $this->resolve_person($recipient);
+  $this->debug_print("Recipient: $recipient");
+  my $gsm_char_re = 
+"[\n\f\r -~\xa0\xa1\xa3\xa4\xa5\xa7\xbf\xc4" .
+"\xc5\xc6\xc9\xd1\xd6\xd8\xdc\xdf\xe0\xe4\xe5" .
+"\xe6\xe7\xe8\xe9\xec\xf1\xf2\xf6\xf8\xf9\xfc" .
+"\x93\x94\x98\x9b\x9e\xa0\xa3\xa6\xa8\xa9\x20ac]"; 'ó'
+  my $unicode = $body !~ /^$gsm_char_re*$/;
+
+  if ($unicode and length($body) > 70)
+  {
+    $body = $this->transliterate($body);
+    $unicode = 0;
+  }
+  $this->debug_print("Message: \n" . Text::Wrap::wrap('  ', '  ', $body));
+  my $body_len = length $body;
+  my $body_blen = POSIX::ceil($body_len * ($unicode ? 16 : 7) / 8.0);
+  $this->debug_print("Message length: $body_len characters, $body_blen bytes");
+  $this->quit("Message too long ($body_blen > 665)") if $body_len > 665;
+
+  my @args = ('scmxx', '--send', '--sms', '--number', $number, '--text', $body);
+  push @args, '--unicode', '--system-charset', 'UTF-8', if $unicode;
+  push @args, '--direct', '--srr' if $direct;
+  push @args, '--device', $device if defined $device;
+  push @args, '--baud', $baud if defined $baud;
+  print "@args\n";
+  exec { '/usr/bin/scmxx' } @args;
+}
+
+main(__PACKAGE__);
+
+__END__
+
+=head1 NAME
+
+siemensms -- send SMs via a Siemens phone
+
+=head1 SYNOPSIS
+
+=over 4
+
+=item orange.pl [-s] [-d] [--force] I<< <phone-number> >> I<< <text> >>
+
+=back
+
+=head1 AUTHOR
+
+Written by Jakub Wilk E<lt>ubanus@users.sf.netE<gt>.
+
+=head1 COPYRIGHT
+
+You may redistribute copies of B<orange-pl> under the terms of the GNU General Public License, version 2.
+
+=cut
+
+vim:ts=2 sw=2 et
