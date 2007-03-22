@@ -4,8 +4,12 @@ Priority: extra
 Maintainer: Jakub Wilk <ubanus@users.sf.net>
 Build-Depends: debhelper (>= 5)
 Standards-Version: 3.7.2
+Bugs: mailto:ubanus@users.sf.net
 
 Package: siemensms
 Architecture: any
 Depends: kawute (>= 0.8), scmxx (>= 0.9)
 Description: Send SMs via a Siemens phone
+ siemensms allows you to send SMs via a Siemens phone.
+ It works with the S25, S35i, M35i and C35i, SL45, S45 and ME45 and
+ probably others.
