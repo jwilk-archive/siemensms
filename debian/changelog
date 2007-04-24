@@ -1,3 +1,9 @@
+siemensms (0.1.1) unstable; urgency=low
+
+  * Repackage.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Tue, 24 Apr 2007 19:18:23 +0200
+
 siemensms (0.1) unstable; urgency=low
 
   * Initial release.
