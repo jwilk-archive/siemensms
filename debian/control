@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 Bugs: mailto:ubanus@users.sf.net
 
 Package: siemensms
-Architecture: any
+Architecture: all
 Depends: kawute (>= 0.8), scmxx (>= 0.9)
 Description: Send SMs via a Siemens phone
  siemensms allows you to send SMs via a Siemens phone.
