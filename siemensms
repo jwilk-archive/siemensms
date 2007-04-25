@@ -7,7 +7,7 @@ package SiemenSMS;
 
 use base qw(kawute);
 
-our $VERSION = '0.1';
+our $VERSION = '0.1.1';
 
 sub version($) { $SiemenSMS::VERSION; }
 sub software_name($) { 'siemensms'; }
