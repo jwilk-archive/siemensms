@@ -1,3 +1,9 @@
+siemensms (0.1.2) unstable; urgency=low
+
+  * Fix a stupid syntax error.
+
+ -- Jakub Wilk <ubanus@users.sf.net>  Thu, 07 Jun 2007 20:04:25 +0200
+
 siemensms (0.1.1) unstable; urgency=low
 
   * Repackage.
