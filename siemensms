@@ -7,7 +7,7 @@ package SiemenSMS;
 
 use base qw(kawute);
 
-our $VERSION = '0.1.1';
+our $VERSION = '0.1.2';
 
 sub version($) { $SiemenSMS::VERSION; }
 sub software_name($) { 'siemensms'; }
@@ -73,7 +73,7 @@ sub action_send()
 "[\n\f\r -~\xa0\xa1\xa3\xa4\xa5\xa7\xbf\xc4" .
 "\xc5\xc6\xc9\xd1\xd6\xd8\xdc\xdf\xe0\xe4\xe5" .
 "\xe6\xe7\xe8\xe9\xec\xf1\xf2\xf6\xf8\xf9\xfc" .
-"\x93\x94\x98\x9b\x9e\xa0\xa3\xa6\xa8\xa9\x20ac]"; 'ó'
+"\x93\x94\x98\x9b\x9e\xa0\xa3\xa6\xa8\xa9\x20ac]";
   my $unicode = $body !~ /^$gsm_char_re*$/;
 
   if ($unicode and length($body) > 70)
