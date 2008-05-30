@@ -106,7 +106,7 @@ siemensms -- send SMs via a Siemens phone
 
 =over 4
 
-=item orange.pl [-s] [-d] [--force] I<< <phone-number> >> I<< <text> >>
+=item siemensms [-s] [-d] [--force] I<< <phone-number> >> I<< <text> >>
 
 =back
 
@@ -116,7 +116,7 @@ Written by Jakub Wilk E<lt>ubanus@users.sf.netE<gt>.
 
 =head1 COPYRIGHT
 
-You may redistribute copies of B<orange-pl> under the terms of the GNU General Public License, version 2.
+You may redistribute copies of B<siemensms> under the terms of the GNU General Public License, version 2.
 
 =cut
 
