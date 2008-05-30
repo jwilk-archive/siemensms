@@ -31,15 +31,13 @@ sub main($)
 {
   my ($this) = @_;
   $this->go_home();
-  use constant
-  {
-    ACTION_VOID   => sub { $this->action_void(); },
-    ACTION_SEND   => sub { $this->action_send(); },
-  };
-  my $action = ACTION_SEND;
+  my $action_void = sub { $this->action_void(); };
+  my $action_send = sub { $this->action_send(); };
+  my $action = $action_send;
+  ACTION_SEND;
   $this->get_options(
-    'send|s|S' =>       sub { $action = ACTION_SEND; },
-    'void' =>           sub { $action = ACTION_VOID; },
+    'send|s|S' =>       sub { $action = $action_send; },
+    'void' =>           sub { $action = $action_void; },
     'direct|d' =>       \$direct
   );
   $this->read_config(
