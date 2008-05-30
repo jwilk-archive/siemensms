@@ -8,7 +8,7 @@ Bugs: mailto:ubanus@users.sf.net
 
 Package: siemensms
 Architecture: all
-Depends: kawute (>= 0.8), scmxx (>= 0.9)
+Depends: kawute (>= 0.8), perl (>= 5.10.0), scmxx (>= 0.9)
 Description: Send SMs via a Siemens phone
  siemensms allows you to send SMs via a Siemens phone.
  It works with the S25, S35i, M35i and C35i, SL45, S45 and ME45 and
