@@ -34,7 +34,6 @@ sub main($)
   my $action_void = sub { $this->action_void(); };
   my $action_send = sub { $this->action_send(); };
   my $action = $action_send;
-  ACTION_SEND;
   $this->get_options(
     'send|s|S' =>       sub { $action = $action_send; },
     'void' =>           sub { $action = $action_void; },
