@@ -1,41 +1,36 @@
 #!/usr/bin/make -f
 
-configure: ;
+configure:
+	:
 
 build: siemensms.1
+	:
 
 siemensms.1: siemensms
 	dh_testdir
 	pod2man -c 'siemensms manual' $(<) > $(@)
 
 clean:
-	dh_testdir
-	dh_testroot
+	dh $(@)
 	dh_clean $(wildcard *.1)
 
 install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
+	dh $(@) --until dh_prep
 	dh_install siemensms usr/bin
 	sed -i -e 's/kawute/Net::kawute/g' debian/siemensms/usr/bin/*
 	dh_installman --language=C $(wildcard *.1)
+	dh_installexamples $(wildcard *.conf)
+	dh $(@) --remaining
 
 binary-indep: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs 
-	dh_installdocs
-	dh_installexamples $(wildcard *.conf)
-	dh_compress
-	dh_fixperms
-	dh_perl
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
+	dh $(@)
 
 binary-arch: build install
+	:
 
 binary: binary-indep binary-arch
+	:
+
 .PHONY: build clean binary-indep binary-arch binary install configure
+
+# vim:ts=4 sw=4 noet
