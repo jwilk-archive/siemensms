@@ -1,19 +1,18 @@
 #!/usr/bin/make -f
 
-configure:
-	:
-
-build: siemensms.1
-	:
+.PHONY: build
+build: siemensms.1 ;
 
 siemensms.1: siemensms
 	dh_testdir
 	pod2man -c 'siemensms manual' $(<) > $(@)
 
+.PHONY: clean
 clean:
 	dh $(@)
 	dh_clean $(wildcard *.1)
 
+.PHONY: install
 install: build
 	dh $(@) --until dh_prep
 	dh_install siemensms usr/bin
@@ -22,15 +21,14 @@ install: build
 	dh_installexamples $(wildcard *.conf)
 	dh $(@) --remaining
 
+.PHONY: binary-indep
 binary-indep: build install
 	dh $(@)
 
-binary-arch: build install
-	:
+.PHONY: binary-arch
+binary-arch: build install ;
 
-binary: binary-indep binary-arch
-	:
-
-.PHONY: build clean binary-indep binary-arch binary install configure
+.PHONY: binary
+binary: binary-indep binary-arch ;
 
 # vim:ts=4 sw=4 noet
