@@ -2,22 +2,22 @@ siemensms (0.1.3) unstable; urgency=low
 
   * Use Perl ≥ 5.10.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Sat, 07 Jun 2008 21:24:33 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Sat, 07 Jun 2008 21:24:33 +0200
 
 siemensms (0.1.2) unstable; urgency=low
 
   * Fix a stupid syntax error.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Thu, 07 Jun 2007 20:04:25 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Thu, 07 Jun 2007 20:04:25 +0200
 
 siemensms (0.1.1) unstable; urgency=low
 
   * Repackage.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Tue, 24 Apr 2007 19:18:23 +0200
+ -- Jakub Wilk <jwilk@jwilk.net>  Tue, 24 Apr 2007 19:18:23 +0200
 
 siemensms (0.1) unstable; urgency=low
 
   * Initial release.
 
- -- Jakub Wilk <ubanus@users.sf.net>  Wed, 29 Nov 2006 11:34:07 +0100
+ -- Jakub Wilk <jwilk@jwilk.net>  Wed, 29 Nov 2006 11:34:07 +0100
