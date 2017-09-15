@@ -40,9 +40,9 @@ sub main($)
     'direct|d' =>       \$direct
   );
   $this->read_config(
-    'device' => sub 
+    'device' => sub
       { $device = shift; },
-    'baud' => sub 
+    'baud' => sub
       { $baud = shift; }
   );
   $this->reject_unpersons(0) if $this->force();
@@ -60,13 +60,13 @@ sub action_send()
   $this->debug_print("Codeset: $codeset");
   binmode STDERR, ":encoding($codeset)";
   binmode STDOUT, ":encoding($codeset)";
-  
+
   my ($recipient, $body) = @ARGV;
   $recipient = Encode::decode($codeset, $recipient);
   $body = Encode::decode($codeset, $body);
   (my $number, $recipient) = $this->resolve_person($recipient);
   $this->debug_print("Recipient: $recipient");
-  my $gsm_char_re = 
+  my $gsm_char_re =
 "[\n\f\r -~\xa0\xa1\xa3\xa4\xa5\xa7\xbf\xc4" .
 "\xc5\xc6\xc9\xd1\xd6\xd8\xdc\xdf\xe0\xe4\xe5" .
 "\xe6\xe7\xe8\xe9\xec\xf1\xf2\xf6\xf8\xf9\xfc" .
